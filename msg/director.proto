@@ -3,13 +3,42 @@ syntax = "proto3";
 option go_package = "github.com/programme-lv/director/msg";
 package msg;
 
-service Greeter {
-  rpc SayHello (HelloRequest) returns (HelloReply) {}
+service Director {
+  rpc EvaluateSubmission (EvaluationRequest) returns (EvaluationResult) {}
 }
 
 // The request message containing the user's name.
-message HelloRequest {
-  string name = 1;
+message EvaluationRequest {
+  string submission = 1;
+  ProgrammingLanguage language = 2;
+  RuntimeLimits limits = 3;
+  string evalType = 4;
+  repeated Test tests = 5;
+  string testlibChecker = 6;
+}
+
+message Test {
+    int64 id = 1;
+    string inSha256 = 2;
+    optional string inDownloadUrl = 3;
+    optional string inContent = 4;
+    string ansSha256 = 5;
+    optional string ansDownloadUrl = 6;
+    optional string ansContent = 7;
+}
+
+message ProgrammingLanguage {
+    int64 id = 1;
+    string name = 2;
+    string codeFilename = 3;
+    optional string compileCmd = 4;
+    optional string compiledFilename = 5;
+    string executeCmd = 6;
+}
+
+message RuntimeLimits {
+    int64 CPUTimeMillis = 1;
+    int64 memKibiBytes = 2;
 }
 
 // The response message containing the greetings
