@@ -4,10 +4,9 @@ option go_package = "github.com/programme-lv/director/msg";
 package msg;
 
 service Director {
-  rpc EvaluateSubmission (EvaluationRequest) returns (EvaluationResult) {}
+  rpc EvaluateSubmission (EvaluationRequest) returns (stream EvaluationFeedback) {}
 }
 
-// The request message containing the user's name.
 message EvaluationRequest {
   string submission = 1;
   ProgrammingLanguage language = 2;
@@ -41,7 +40,18 @@ message RuntimeLimits {
     int64 memKibiBytes = 2;
 }
 
-// The response message containing the greetings
-message HelloReply {
-  string message = 1;
+message EvaluationFeedback {
+    oneof feedback_types {
+        StartEvaluation start = 1;
+    }
 }
+
+message StartEvaluation {}
+
+message FinishWithInernalServerError {
+    string errorMsg = 1;
+}
+
+message FinishEvaluation {}
+
+message StartCompilation {}
