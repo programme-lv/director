@@ -68,7 +68,7 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 		false, // exclusive
 		false, // no-wait
 		amqp.Table{
-			"x-expires": int32(1000 * 60 * 10), // 10 minutes
+			"x-expires": int32(1000 * 60 * 35), // 35 minutes
 		}, // arguments
 	)
 	if err != nil {
@@ -84,6 +84,8 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 			ContentType: "application/protobuf",
 			Body:        body,
 			ReplyTo:     respQ.Name,
+			// Expiration:  "10000", // 10 seconds
+			Expiration: fmt.Sprintf("%d", 1000*60*30), // 30 minutes
 		})
 
 	if err != nil {
