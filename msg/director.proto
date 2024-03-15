@@ -27,7 +27,7 @@ message Test {
 }
 
 message ProgrammingLanguage {
-    int64 id = 1;
+    string id = 1;
     string name = 2;
     string codeFilename = 3;
     optional string compileCmd = 4;
