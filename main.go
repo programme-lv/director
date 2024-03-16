@@ -23,7 +23,7 @@ var (
 
 type server struct {
 	pb.UnimplementedDirectorServer
-	rmqConnStr string
+	conn *amqp.Connection
 }
 
 func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Director_EvaluateSubmissionServer) error {
@@ -37,21 +37,14 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 
 	body = snappy.Encode(nil, body)
 
-	var rmq *amqp.Connection
-	rmq, err = amqp.Dial(s.rmqConnStr)
+	ch, err := s.conn.Channel()
 	if err != nil {
 		return err
 	}
-
-	ch, err := rmq.Channel()
-	if err != nil {
-		return err
-	}
-	defer ch.Close()
 
 	evalQ, err := ch.QueueDeclare(
 		"eval_q",     // name
-		true,         // durable (messages will survive broker restarts)
+		false,        // durable (messages will survive broker restarts)
 		false,        // autoDelete (queue will be deleted when no consumers)
 		false,        // exclusive (exclusive use by only this connection)
 		false,        // no-wait (don't wait for a confirmation from the server)
@@ -81,7 +74,7 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 		true,       // mandatory
 		false,      // immediate
 		amqp.Publishing{
-			ContentType: "application/protobuf",
+			ContentType: "application/octet-stream",
 			Body:        body,
 			ReplyTo:     respQ.Name,
 			// Expiration:  "10000", // 10 seconds
@@ -90,6 +83,26 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 
 	if err != nil {
 		return err
+	}
+
+	// start consuming from the response queue
+	msgs, err := ch.Consume(
+		respQ.Name, // queue
+		"",         // consumer
+		false,      // auto-ack
+		false,      // exclusive
+		false,      // no-local
+		false,      // no-wait
+		nil,        // args
+	)
+	if err != nil {
+		return err
+	}
+
+	for msg := range msgs {
+		// unmarshal the message
+		log.Printf("Received a message: %s", msg.Body)
+		msg.Ack(false)
 	}
 
 	return nil
@@ -105,10 +118,15 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to listen: %v", err)
 	}
+
+	conn, err := amqp.Dial(os.Getenv("RMQ_CONN_STR"))
+	if err != nil {
+		log.Fatalf("failed to connect to RabbitMQ: %v", err)
+	}
+
 	grpcServer := grpc.NewServer()
 	server := &server{}
-	server.rmqConnStr = os.Getenv("RMQ_CONN_STR")
-	log.Println("RMQ_CONN_STR: ", server.rmqConnStr)
+	server.conn = conn
 	pb.RegisterDirectorServer(grpcServer, server)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {

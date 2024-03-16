@@ -6,12 +6,14 @@ require (
 	github.com/golang/snappy v0.0.4
 	github.com/joho/godotenv v1.5.1
 	github.com/rabbitmq/amqp091-go v1.9.0
+	github.com/wagslane/go-rabbitmq v0.13.0
 	google.golang.org/grpc v1.62.1
 	google.golang.org/protobuf v1.33.0
 )
 
 require (
 	github.com/golang/protobuf v1.5.4 // indirect
+	github.com/jxsl13/amqpx v0.8.0 // indirect
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/sys v0.17.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

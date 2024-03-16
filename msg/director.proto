@@ -43,6 +43,7 @@ message RuntimeLimits {
 message EvaluationFeedback {
     oneof feedback_types {
         StartEvaluation start = 1;
+        FinishEvaluation finish = 2;
     }
 }
 
