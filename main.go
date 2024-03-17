@@ -7,6 +7,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/golang/snappy"
@@ -14,9 +15,16 @@ import (
 	pb "github.com/programme-lv/director/msg"
 	amqp "github.com/rabbitmq/amqp091-go"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/metadata"
+	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 )
 
+var (
+	errMissingMetadata = status.Errorf(codes.InvalidArgument, "missing metadata")
+	errInvalidToken    = status.Errorf(codes.Unauthenticated, "invalid token")
+)
 var (
 	port = flag.Int("port", 50051, "The server port")
 )
@@ -180,12 +188,47 @@ func main() {
 		log.Fatalf("failed to connect to RabbitMQ: %v", err)
 	}
 
-	grpcServer := grpc.NewServer()
+	apiKey := os.Getenv("GRPC_API_KEY")
+	if len(apiKey) < 3 {
+		log.Fatalf("GRPC_API_KEY is not set or invalid")
+	}
+
+	opts := []grpc.ServerOption{
+		grpc.StreamInterceptor(getEnsureValidTokenFunc(apiKey)),
+	}
+	grpcServer := grpc.NewServer(opts...)
 	server := &server{}
 	server.conn = conn
 	pb.RegisterDirectorServer(grpcServer, server)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
 		log.Fatalf("failed to serve: %v", err)
+	}
+}
+
+// valid validates the authorization.
+func valid(authorization []string, apiKey string) bool {
+	if len(authorization) < 1 {
+		return false
+	}
+	token := strings.TrimPrefix(authorization[0], "Bearer ")
+	// Perform the token validation here. For the sake of this example, the code
+	// here forgoes any of the usual OAuth2 token validation and instead checks
+	// for a token matching an arbitrary string.
+	return token == apiKey
+}
+
+func getEnsureValidTokenFunc(apiKey string) func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	return func(srv any, ss grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+		md, ok := metadata.FromIncomingContext(ss.Context())
+		if !ok {
+			return errMissingMetadata
+		}
+		// // The keys within metadata.MD are normalized to lowercase.
+		// // See: https://godoc.org/google.golang.org/grpc/metadata#New
+		if !valid(md["authorization"], apiKey) {
+			return errInvalidToken
+		}
+		return handler(srv, ss)
 	}
 }
