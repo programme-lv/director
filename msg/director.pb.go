@@ -351,8 +351,22 @@ type EvaluationFeedback struct {
 
 	// Types that are assignable to FeedbackTypes:
 	//
-	//	*EvaluationFeedback_Start
-	//	*EvaluationFeedback_Finish
+	//	*EvaluationFeedback_StartEvaluation
+	//	*EvaluationFeedback_FinishEvaluation
+	//	*EvaluationFeedback_FinishWithInernalServerError
+	//	*EvaluationFeedback_StartCompilation
+	//	*EvaluationFeedback_FinishCompilation
+	//	*EvaluationFeedback_FinishWithCompilationError
+	//	*EvaluationFeedback_StartTesting
+	//	*EvaluationFeedback_IgnoreTest
+	//	*EvaluationFeedback_StartTest
+	//	*EvaluationFeedback_ReportTestSubmissionRuntimeData
+	//	*EvaluationFeedback_FinishTestWithLimitExceeded
+	//	*EvaluationFeedback_FinishTestWithRuntimeError
+	//	*EvaluationFeedback_ReportTestCheckerRuntimeData
+	//	*EvaluationFeedback_FinishTestWithVerdictAccepted
+	//	*EvaluationFeedback_FinishTestWithVerdictWrongAnswer
+	//	*EvaluationFeedback_IncrementScore
 	FeedbackTypes isEvaluationFeedback_FeedbackTypes `protobuf_oneof:"feedback_types"`
 }
 
@@ -395,16 +409,114 @@ func (m *EvaluationFeedback) GetFeedbackTypes() isEvaluationFeedback_FeedbackTyp
 	return nil
 }
 
-func (x *EvaluationFeedback) GetStart() *StartEvaluation {
-	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_Start); ok {
-		return x.Start
+func (x *EvaluationFeedback) GetStartEvaluation() *StartEvaluation {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_StartEvaluation); ok {
+		return x.StartEvaluation
 	}
 	return nil
 }
 
-func (x *EvaluationFeedback) GetFinish() *FinishEvaluation {
-	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_Finish); ok {
-		return x.Finish
+func (x *EvaluationFeedback) GetFinishEvaluation() *FinishEvaluation {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishEvaluation); ok {
+		return x.FinishEvaluation
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishWithInernalServerError() *FinishWithInernalServerError {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishWithInernalServerError); ok {
+		return x.FinishWithInernalServerError
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetStartCompilation() *StartCompilation {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_StartCompilation); ok {
+		return x.StartCompilation
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishCompilation() *FinishCompilation {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishCompilation); ok {
+		return x.FinishCompilation
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishWithCompilationError() *FinishWithCompilationError {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishWithCompilationError); ok {
+		return x.FinishWithCompilationError
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetStartTesting() *StartTesting {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_StartTesting); ok {
+		return x.StartTesting
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetIgnoreTest() *IgnoreTest {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_IgnoreTest); ok {
+		return x.IgnoreTest
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetStartTest() *StartTest {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_StartTest); ok {
+		return x.StartTest
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetReportTestSubmissionRuntimeData() *ReportTestSubmissionRuntimeData {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_ReportTestSubmissionRuntimeData); ok {
+		return x.ReportTestSubmissionRuntimeData
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishTestWithLimitExceeded() *FinishTestWithLimitExceeded {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishTestWithLimitExceeded); ok {
+		return x.FinishTestWithLimitExceeded
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishTestWithRuntimeError() *FinishTestWithRuntimeError {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishTestWithRuntimeError); ok {
+		return x.FinishTestWithRuntimeError
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetReportTestCheckerRuntimeData() *ReportTestCheckerRuntimeData {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_ReportTestCheckerRuntimeData); ok {
+		return x.ReportTestCheckerRuntimeData
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishTestWithVerdictAccepted() *FinishTestWithVerdictAccepted {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishTestWithVerdictAccepted); ok {
+		return x.FinishTestWithVerdictAccepted
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetFinishTestWithVerdictWrongAnswer() *FinishTestWithVerdictWrongAnswer {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_FinishTestWithVerdictWrongAnswer); ok {
+		return x.FinishTestWithVerdictWrongAnswer
+	}
+	return nil
+}
+
+func (x *EvaluationFeedback) GetIncrementScore() *IncrementScore {
+	if x, ok := x.GetFeedbackTypes().(*EvaluationFeedback_IncrementScore); ok {
+		return x.IncrementScore
 	}
 	return nil
 }
@@ -413,17 +525,101 @@ type isEvaluationFeedback_FeedbackTypes interface {
 	isEvaluationFeedback_FeedbackTypes()
 }
 
-type EvaluationFeedback_Start struct {
-	Start *StartEvaluation `protobuf:"bytes,1,opt,name=start,proto3,oneof"`
+type EvaluationFeedback_StartEvaluation struct {
+	StartEvaluation *StartEvaluation `protobuf:"bytes,1,opt,name=startEvaluation,proto3,oneof"`
 }
 
-type EvaluationFeedback_Finish struct {
-	Finish *FinishEvaluation `protobuf:"bytes,2,opt,name=finish,proto3,oneof"`
+type EvaluationFeedback_FinishEvaluation struct {
+	FinishEvaluation *FinishEvaluation `protobuf:"bytes,2,opt,name=finishEvaluation,proto3,oneof"`
 }
 
-func (*EvaluationFeedback_Start) isEvaluationFeedback_FeedbackTypes() {}
+type EvaluationFeedback_FinishWithInernalServerError struct {
+	FinishWithInernalServerError *FinishWithInernalServerError `protobuf:"bytes,3,opt,name=finishWithInernalServerError,proto3,oneof"`
+}
 
-func (*EvaluationFeedback_Finish) isEvaluationFeedback_FeedbackTypes() {}
+type EvaluationFeedback_StartCompilation struct {
+	StartCompilation *StartCompilation `protobuf:"bytes,4,opt,name=startCompilation,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishCompilation struct {
+	FinishCompilation *FinishCompilation `protobuf:"bytes,5,opt,name=finishCompilation,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishWithCompilationError struct {
+	FinishWithCompilationError *FinishWithCompilationError `protobuf:"bytes,6,opt,name=finishWithCompilationError,proto3,oneof"`
+}
+
+type EvaluationFeedback_StartTesting struct {
+	StartTesting *StartTesting `protobuf:"bytes,7,opt,name=startTesting,proto3,oneof"`
+}
+
+type EvaluationFeedback_IgnoreTest struct {
+	IgnoreTest *IgnoreTest `protobuf:"bytes,8,opt,name=ignoreTest,proto3,oneof"`
+}
+
+type EvaluationFeedback_StartTest struct {
+	StartTest *StartTest `protobuf:"bytes,9,opt,name=startTest,proto3,oneof"`
+}
+
+type EvaluationFeedback_ReportTestSubmissionRuntimeData struct {
+	ReportTestSubmissionRuntimeData *ReportTestSubmissionRuntimeData `protobuf:"bytes,10,opt,name=reportTestSubmissionRuntimeData,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishTestWithLimitExceeded struct {
+	FinishTestWithLimitExceeded *FinishTestWithLimitExceeded `protobuf:"bytes,11,opt,name=finishTestWithLimitExceeded,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishTestWithRuntimeError struct {
+	FinishTestWithRuntimeError *FinishTestWithRuntimeError `protobuf:"bytes,12,opt,name=finishTestWithRuntimeError,proto3,oneof"`
+}
+
+type EvaluationFeedback_ReportTestCheckerRuntimeData struct {
+	ReportTestCheckerRuntimeData *ReportTestCheckerRuntimeData `protobuf:"bytes,13,opt,name=reportTestCheckerRuntimeData,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishTestWithVerdictAccepted struct {
+	FinishTestWithVerdictAccepted *FinishTestWithVerdictAccepted `protobuf:"bytes,14,opt,name=finishTestWithVerdictAccepted,proto3,oneof"`
+}
+
+type EvaluationFeedback_FinishTestWithVerdictWrongAnswer struct {
+	FinishTestWithVerdictWrongAnswer *FinishTestWithVerdictWrongAnswer `protobuf:"bytes,15,opt,name=finishTestWithVerdictWrongAnswer,proto3,oneof"`
+}
+
+type EvaluationFeedback_IncrementScore struct {
+	IncrementScore *IncrementScore `protobuf:"bytes,16,opt,name=incrementScore,proto3,oneof"`
+}
+
+func (*EvaluationFeedback_StartEvaluation) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishEvaluation) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishWithInernalServerError) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_StartCompilation) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishCompilation) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishWithCompilationError) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_StartTesting) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_IgnoreTest) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_StartTest) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_ReportTestSubmissionRuntimeData) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishTestWithLimitExceeded) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishTestWithRuntimeError) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_ReportTestCheckerRuntimeData) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishTestWithVerdictAccepted) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_FinishTestWithVerdictWrongAnswer) isEvaluationFeedback_FeedbackTypes() {}
+
+func (*EvaluationFeedback_IncrementScore) isEvaluationFeedback_FeedbackTypes() {}
 
 type StartEvaluation struct {
 	state         protoimpl.MessageState
@@ -463,53 +659,6 @@ func (*StartEvaluation) Descriptor() ([]byte, []int) {
 	return file_msg_director_proto_rawDescGZIP(), []int{5}
 }
 
-type FinishWithInernalServerError struct {
-	state         protoimpl.MessageState
-	sizeCache     protoimpl.SizeCache
-	unknownFields protoimpl.UnknownFields
-
-	ErrorMsg string `protobuf:"bytes,1,opt,name=errorMsg,proto3" json:"errorMsg,omitempty"`
-}
-
-func (x *FinishWithInernalServerError) Reset() {
-	*x = FinishWithInernalServerError{}
-	if protoimpl.UnsafeEnabled {
-		mi := &file_msg_director_proto_msgTypes[6]
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		ms.StoreMessageInfo(mi)
-	}
-}
-
-func (x *FinishWithInernalServerError) String() string {
-	return protoimpl.X.MessageStringOf(x)
-}
-
-func (*FinishWithInernalServerError) ProtoMessage() {}
-
-func (x *FinishWithInernalServerError) ProtoReflect() protoreflect.Message {
-	mi := &file_msg_director_proto_msgTypes[6]
-	if protoimpl.UnsafeEnabled && x != nil {
-		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
-		if ms.LoadMessageInfo() == nil {
-			ms.StoreMessageInfo(mi)
-		}
-		return ms
-	}
-	return mi.MessageOf(x)
-}
-
-// Deprecated: Use FinishWithInernalServerError.ProtoReflect.Descriptor instead.
-func (*FinishWithInernalServerError) Descriptor() ([]byte, []int) {
-	return file_msg_director_proto_rawDescGZIP(), []int{6}
-}
-
-func (x *FinishWithInernalServerError) GetErrorMsg() string {
-	if x != nil {
-		return x.ErrorMsg
-	}
-	return ""
-}
-
 type FinishEvaluation struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -519,7 +668,7 @@ type FinishEvaluation struct {
 func (x *FinishEvaluation) Reset() {
 	*x = FinishEvaluation{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_msg_director_proto_msgTypes[7]
+		mi := &file_msg_director_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -532,7 +681,7 @@ func (x *FinishEvaluation) String() string {
 func (*FinishEvaluation) ProtoMessage() {}
 
 func (x *FinishEvaluation) ProtoReflect() protoreflect.Message {
-	mi := &file_msg_director_proto_msgTypes[7]
+	mi := &file_msg_director_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -545,7 +694,54 @@ func (x *FinishEvaluation) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use FinishEvaluation.ProtoReflect.Descriptor instead.
 func (*FinishEvaluation) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{6}
+}
+
+type FinishWithInernalServerError struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrorMsg string `protobuf:"bytes,1,opt,name=errorMsg,proto3" json:"errorMsg,omitempty"`
+}
+
+func (x *FinishWithInernalServerError) Reset() {
+	*x = FinishWithInernalServerError{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[7]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishWithInernalServerError) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishWithInernalServerError) ProtoMessage() {}
+
+func (x *FinishWithInernalServerError) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[7]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishWithInernalServerError.ProtoReflect.Descriptor instead.
+func (*FinishWithInernalServerError) Descriptor() ([]byte, []int) {
 	return file_msg_director_proto_rawDescGZIP(), []int{7}
+}
+
+func (x *FinishWithInernalServerError) GetErrorMsg() string {
+	if x != nil {
+		return x.ErrorMsg
+	}
+	return ""
 }
 
 type StartCompilation struct {
@@ -584,6 +780,689 @@ func (x *StartCompilation) ProtoReflect() protoreflect.Message {
 // Deprecated: Use StartCompilation.ProtoReflect.Descriptor instead.
 func (*StartCompilation) Descriptor() ([]byte, []int) {
 	return file_msg_director_proto_rawDescGZIP(), []int{8}
+}
+
+type FinishCompilation struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	CompilationRData *RuntimeData `protobuf:"bytes,1,opt,name=compilationRData,proto3" json:"compilationRData,omitempty"`
+}
+
+func (x *FinishCompilation) Reset() {
+	*x = FinishCompilation{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[9]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishCompilation) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishCompilation) ProtoMessage() {}
+
+func (x *FinishCompilation) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[9]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishCompilation.ProtoReflect.Descriptor instead.
+func (*FinishCompilation) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{9}
+}
+
+func (x *FinishCompilation) GetCompilationRData() *RuntimeData {
+	if x != nil {
+		return x.CompilationRData
+	}
+	return nil
+}
+
+type FinishWithCompilationError struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	ErrorMsg string `protobuf:"bytes,1,opt,name=errorMsg,proto3" json:"errorMsg,omitempty"`
+}
+
+func (x *FinishWithCompilationError) Reset() {
+	*x = FinishWithCompilationError{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[10]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishWithCompilationError) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishWithCompilationError) ProtoMessage() {}
+
+func (x *FinishWithCompilationError) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[10]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishWithCompilationError.ProtoReflect.Descriptor instead.
+func (*FinishWithCompilationError) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *FinishWithCompilationError) GetErrorMsg() string {
+	if x != nil {
+		return x.ErrorMsg
+	}
+	return ""
+}
+
+type StartTesting struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	MaxScore int64 `protobuf:"varint,1,opt,name=maxScore,proto3" json:"maxScore,omitempty"`
+}
+
+func (x *StartTesting) Reset() {
+	*x = StartTesting{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[11]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StartTesting) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartTesting) ProtoMessage() {}
+
+func (x *StartTesting) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[11]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartTesting.ProtoReflect.Descriptor instead.
+func (*StartTesting) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *StartTesting) GetMaxScore() int64 {
+	if x != nil {
+		return x.MaxScore
+	}
+	return 0
+}
+
+type IgnoreTest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+}
+
+func (x *IgnoreTest) Reset() {
+	*x = IgnoreTest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[12]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IgnoreTest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IgnoreTest) ProtoMessage() {}
+
+func (x *IgnoreTest) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[12]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IgnoreTest.ProtoReflect.Descriptor instead.
+func (*IgnoreTest) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *IgnoreTest) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+type StartTest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+}
+
+func (x *StartTest) Reset() {
+	*x = StartTest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[13]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *StartTest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*StartTest) ProtoMessage() {}
+
+func (x *StartTest) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[13]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use StartTest.ProtoReflect.Descriptor instead.
+func (*StartTest) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *StartTest) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+type ReportTestSubmissionRuntimeData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64        `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+	RData  *RuntimeData `protobuf:"bytes,2,opt,name=rData,proto3" json:"rData,omitempty"`
+}
+
+func (x *ReportTestSubmissionRuntimeData) Reset() {
+	*x = ReportTestSubmissionRuntimeData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[14]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReportTestSubmissionRuntimeData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportTestSubmissionRuntimeData) ProtoMessage() {}
+
+func (x *ReportTestSubmissionRuntimeData) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[14]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportTestSubmissionRuntimeData.ProtoReflect.Descriptor instead.
+func (*ReportTestSubmissionRuntimeData) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{14}
+}
+
+func (x *ReportTestSubmissionRuntimeData) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+func (x *ReportTestSubmissionRuntimeData) GetRData() *RuntimeData {
+	if x != nil {
+		return x.RData
+	}
+	return nil
+}
+
+type FinishTestWithLimitExceeded struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId                int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+	IsCPUTimeExceeded     bool  `protobuf:"varint,2,opt,name=isCPUTimeExceeded,proto3" json:"isCPUTimeExceeded,omitempty"`
+	MemoryLimitExceeded   bool  `protobuf:"varint,3,opt,name=memoryLimitExceeded,proto3" json:"memoryLimitExceeded,omitempty"`
+	IdlenessLimitExceeded bool  `protobuf:"varint,4,opt,name=idlenessLimitExceeded,proto3" json:"idlenessLimitExceeded,omitempty"`
+}
+
+func (x *FinishTestWithLimitExceeded) Reset() {
+	*x = FinishTestWithLimitExceeded{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[15]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishTestWithLimitExceeded) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTestWithLimitExceeded) ProtoMessage() {}
+
+func (x *FinishTestWithLimitExceeded) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[15]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTestWithLimitExceeded.ProtoReflect.Descriptor instead.
+func (*FinishTestWithLimitExceeded) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{15}
+}
+
+func (x *FinishTestWithLimitExceeded) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+func (x *FinishTestWithLimitExceeded) GetIsCPUTimeExceeded() bool {
+	if x != nil {
+		return x.IsCPUTimeExceeded
+	}
+	return false
+}
+
+func (x *FinishTestWithLimitExceeded) GetMemoryLimitExceeded() bool {
+	if x != nil {
+		return x.MemoryLimitExceeded
+	}
+	return false
+}
+
+func (x *FinishTestWithLimitExceeded) GetIdlenessLimitExceeded() bool {
+	if x != nil {
+		return x.IdlenessLimitExceeded
+	}
+	return false
+}
+
+type FinishTestWithRuntimeError struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+}
+
+func (x *FinishTestWithRuntimeError) Reset() {
+	*x = FinishTestWithRuntimeError{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[16]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishTestWithRuntimeError) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTestWithRuntimeError) ProtoMessage() {}
+
+func (x *FinishTestWithRuntimeError) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[16]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTestWithRuntimeError.ProtoReflect.Descriptor instead.
+func (*FinishTestWithRuntimeError) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{16}
+}
+
+func (x *FinishTestWithRuntimeError) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+type ReportTestCheckerRuntimeData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	RData *RuntimeData `protobuf:"bytes,1,opt,name=rData,proto3" json:"rData,omitempty"`
+}
+
+func (x *ReportTestCheckerRuntimeData) Reset() {
+	*x = ReportTestCheckerRuntimeData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[17]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *ReportTestCheckerRuntimeData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ReportTestCheckerRuntimeData) ProtoMessage() {}
+
+func (x *ReportTestCheckerRuntimeData) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[17]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ReportTestCheckerRuntimeData.ProtoReflect.Descriptor instead.
+func (*ReportTestCheckerRuntimeData) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{17}
+}
+
+func (x *ReportTestCheckerRuntimeData) GetRData() *RuntimeData {
+	if x != nil {
+		return x.RData
+	}
+	return nil
+}
+
+type FinishTestWithVerdictAccepted struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+}
+
+func (x *FinishTestWithVerdictAccepted) Reset() {
+	*x = FinishTestWithVerdictAccepted{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[18]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishTestWithVerdictAccepted) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTestWithVerdictAccepted) ProtoMessage() {}
+
+func (x *FinishTestWithVerdictAccepted) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[18]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTestWithVerdictAccepted.ProtoReflect.Descriptor instead.
+func (*FinishTestWithVerdictAccepted) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{18}
+}
+
+func (x *FinishTestWithVerdictAccepted) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+type FinishTestWithVerdictWrongAnswer struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	TestId int64 `protobuf:"varint,1,opt,name=testId,proto3" json:"testId,omitempty"`
+}
+
+func (x *FinishTestWithVerdictWrongAnswer) Reset() {
+	*x = FinishTestWithVerdictWrongAnswer{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[19]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *FinishTestWithVerdictWrongAnswer) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*FinishTestWithVerdictWrongAnswer) ProtoMessage() {}
+
+func (x *FinishTestWithVerdictWrongAnswer) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[19]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use FinishTestWithVerdictWrongAnswer.ProtoReflect.Descriptor instead.
+func (*FinishTestWithVerdictWrongAnswer) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{19}
+}
+
+func (x *FinishTestWithVerdictWrongAnswer) GetTestId() int64 {
+	if x != nil {
+		return x.TestId
+	}
+	return 0
+}
+
+type IncrementScore struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Delta int64 `protobuf:"varint,1,opt,name=delta,proto3" json:"delta,omitempty"`
+}
+
+func (x *IncrementScore) Reset() {
+	*x = IncrementScore{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[20]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IncrementScore) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IncrementScore) ProtoMessage() {}
+
+func (x *IncrementScore) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[20]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IncrementScore.ProtoReflect.Descriptor instead.
+func (*IncrementScore) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{20}
+}
+
+func (x *IncrementScore) GetDelta() int64 {
+	if x != nil {
+		return x.Delta
+	}
+	return 0
+}
+
+type RuntimeData struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Stdout         string `protobuf:"bytes,1,opt,name=stdout,proto3" json:"stdout,omitempty"`
+	Stderr         string `protobuf:"bytes,2,opt,name=stderr,proto3" json:"stderr,omitempty"`
+	ExitCode       int64  `protobuf:"varint,3,opt,name=exitCode,proto3" json:"exitCode,omitempty"`
+	CpuTimeMillis  int64  `protobuf:"varint,4,opt,name=cpuTimeMillis,proto3" json:"cpuTimeMillis,omitempty"`
+	WallTimeMillis int64  `protobuf:"varint,5,opt,name=wallTimeMillis,proto3" json:"wallTimeMillis,omitempty"`
+	MemKibiBytes   int64  `protobuf:"varint,6,opt,name=memKibiBytes,proto3" json:"memKibiBytes,omitempty"`
+}
+
+func (x *RuntimeData) Reset() {
+	*x = RuntimeData{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_msg_director_proto_msgTypes[21]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *RuntimeData) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RuntimeData) ProtoMessage() {}
+
+func (x *RuntimeData) ProtoReflect() protoreflect.Message {
+	mi := &file_msg_director_proto_msgTypes[21]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RuntimeData.ProtoReflect.Descriptor instead.
+func (*RuntimeData) Descriptor() ([]byte, []int) {
+	return file_msg_director_proto_rawDescGZIP(), []int{21}
+}
+
+func (x *RuntimeData) GetStdout() string {
+	if x != nil {
+		return x.Stdout
+	}
+	return ""
+}
+
+func (x *RuntimeData) GetStderr() string {
+	if x != nil {
+		return x.Stderr
+	}
+	return ""
+}
+
+func (x *RuntimeData) GetExitCode() int64 {
+	if x != nil {
+		return x.ExitCode
+	}
+	return 0
+}
+
+func (x *RuntimeData) GetCpuTimeMillis() int64 {
+	if x != nil {
+		return x.CpuTimeMillis
+	}
+	return 0
+}
+
+func (x *RuntimeData) GetWallTimeMillis() int64 {
+	if x != nil {
+		return x.WallTimeMillis
+	}
+	return 0
+}
+
+func (x *RuntimeData) GetMemKibiBytes() int64 {
+	if x != nil {
+		return x.MemKibiBytes
+	}
+	return 0
 }
 
 var File_msg_director_proto protoreflect.FileDescriptor
@@ -647,31 +1526,175 @@ var file_msg_director_proto_rawDesc = []byte{
 	0x50, 0x55, 0x54, 0x69, 0x6d, 0x65, 0x4d, 0x69, 0x6c, 0x6c, 0x69, 0x73, 0x12, 0x22, 0x0a, 0x0c,
 	0x6d, 0x65, 0x6d, 0x4b, 0x69, 0x62, 0x69, 0x42, 0x79, 0x74, 0x65, 0x73, 0x18, 0x02, 0x20, 0x01,
 	0x28, 0x03, 0x52, 0x0c, 0x6d, 0x65, 0x6d, 0x4b, 0x69, 0x62, 0x69, 0x42, 0x79, 0x74, 0x65, 0x73,
-	0x22, 0x85, 0x01, 0x0a, 0x12, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x46,
-	0x65, 0x65, 0x64, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x2c, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74,
-	0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x14, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x53, 0x74, 0x61,
-	0x72, 0x74, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x05,
-	0x73, 0x74, 0x61, 0x72, 0x74, 0x12, 0x2f, 0x0a, 0x06, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x18,
-	0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69,
-	0x73, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x06,
-	0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x42, 0x10, 0x0a, 0x0e, 0x66, 0x65, 0x65, 0x64, 0x62, 0x61,
-	0x63, 0x6b, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x74, 0x61, 0x72,
-	0x74, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x3a, 0x0a, 0x1c, 0x46,
-	0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6e, 0x65, 0x72, 0x6e, 0x61, 0x6c,
-	0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x1a, 0x0a, 0x08, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x65,
-	0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x22, 0x12, 0x0a, 0x10, 0x46, 0x69, 0x6e, 0x69, 0x73,
-	0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x12, 0x0a, 0x10, 0x53,
-	0x74, 0x61, 0x72, 0x74, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x32,
-	0x55, 0x0a, 0x08, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x12, 0x49, 0x0a, 0x12, 0x45,
-	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x65, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f,
-	0x6e, 0x12, 0x16, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69,
-	0x6f, 0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x6d, 0x73, 0x67, 0x2e,
-	0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x65, 0x64, 0x62, 0x61,
-	0x63, 0x6b, 0x22, 0x00, 0x30, 0x01, 0x42, 0x26, 0x5a, 0x24, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62,
-	0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x6d, 0x65, 0x2d, 0x6c,
-	0x76, 0x2f, 0x64, 0x69, 0x72, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x2f, 0x6d, 0x73, 0x67, 0x62, 0x06,
-	0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x22, 0xe6, 0x0a, 0x0a, 0x12, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x46,
+	0x65, 0x65, 0x64, 0x62, 0x61, 0x63, 0x6b, 0x12, 0x40, 0x0a, 0x0f, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x14, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x45, 0x76, 0x61, 0x6c,
+	0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x0f, 0x73, 0x74, 0x61, 0x72, 0x74, 0x45,
+	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x43, 0x0a, 0x10, 0x66, 0x69, 0x6e,
+	0x69, 0x73, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x02, 0x20,
+	0x01, 0x28, 0x0b, 0x32, 0x15, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68,
+	0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x10, 0x66, 0x69,
+	0x6e, 0x69, 0x73, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x67,
+	0x0a, 0x1c, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6e, 0x65, 0x72,
+	0x6e, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x03,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73,
+	0x68, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6e, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76,
+	0x65, 0x72, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x48, 0x00, 0x52, 0x1c, 0x66, 0x69, 0x6e, 0x69, 0x73,
+	0x68, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6e, 0x65, 0x72, 0x6e, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76,
+	0x65, 0x72, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x43, 0x0a, 0x10, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x18, 0x04, 0x20, 0x01, 0x28,
+	0x0b, 0x32, 0x15, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x43, 0x6f, 0x6d,
+	0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48, 0x00, 0x52, 0x10, 0x73, 0x74, 0x61, 0x72,
+	0x74, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x46, 0x0a, 0x11,
+	0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x18, 0x05, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x16, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69,
+	0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x48,
+	0x00, 0x52, 0x11, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x12, 0x61, 0x0a, 0x1a, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69,
+	0x74, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x45, 0x72, 0x72,
+	0x6f, 0x72, 0x18, 0x06, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1f, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46,
+	0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69, 0x74, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x48, 0x00, 0x52, 0x1a, 0x66, 0x69, 0x6e,
+	0x69, 0x73, 0x68, 0x57, 0x69, 0x74, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69,
+	0x6f, 0x6e, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x37, 0x0a, 0x0c, 0x73, 0x74, 0x61, 0x72, 0x74,
+	0x54, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67, 0x18, 0x07, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x11, 0x2e,
+	0x6d, 0x73, 0x67, 0x2e, 0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67,
+	0x48, 0x00, 0x52, 0x0c, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67,
+	0x12, 0x31, 0x0a, 0x0a, 0x69, 0x67, 0x6e, 0x6f, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0x18, 0x08,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x0f, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x49, 0x67, 0x6e, 0x6f, 0x72,
+	0x65, 0x54, 0x65, 0x73, 0x74, 0x48, 0x00, 0x52, 0x0a, 0x69, 0x67, 0x6e, 0x6f, 0x72, 0x65, 0x54,
+	0x65, 0x73, 0x74, 0x12, 0x2e, 0x0a, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74,
+	0x18, 0x09, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x0e, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x53, 0x74, 0x61,
+	0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x48, 0x00, 0x52, 0x09, 0x73, 0x74, 0x61, 0x72, 0x74, 0x54,
+	0x65, 0x73, 0x74, 0x12, 0x70, 0x0a, 0x1f, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65, 0x73,
+	0x74, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x75, 0x6e, 0x74, 0x69,
+	0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x18, 0x0a, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x24, 0x2e, 0x6d,
+	0x73, 0x67, 0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x53, 0x75, 0x62,
+	0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61,
+	0x74, 0x61, 0x48, 0x00, 0x52, 0x1f, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74,
+	0x53, 0x75, 0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d,
+	0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x64, 0x0a, 0x1b, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54,
+	0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65,
+	0x65, 0x64, 0x65, 0x64, 0x18, 0x0b, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x20, 0x2e, 0x6d, 0x73, 0x67,
+	0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x4c,
+	0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x48, 0x00, 0x52, 0x1b,
+	0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x69,
+	0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12, 0x61, 0x0a, 0x1a, 0x66,
+	0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x52, 0x75, 0x6e,
+	0x74, 0x69, 0x6d, 0x65, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x18, 0x0c, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x1f, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74,
+	0x57, 0x69, 0x74, 0x68, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x72, 0x72, 0x6f, 0x72,
+	0x48, 0x00, 0x52, 0x1a, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69,
+	0x74, 0x68, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x72, 0x72, 0x6f, 0x72, 0x12, 0x67,
+	0x0a, 0x1c, 0x72, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x43, 0x68, 0x65, 0x63,
+	0x6b, 0x65, 0x72, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x18, 0x0d,
+	0x20, 0x01, 0x28, 0x0b, 0x32, 0x21, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x52, 0x65, 0x70, 0x6f, 0x72,
+	0x74, 0x54, 0x65, 0x73, 0x74, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x52, 0x75, 0x6e, 0x74,
+	0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x48, 0x00, 0x52, 0x1c, 0x72, 0x65, 0x70, 0x6f, 0x72,
+	0x74, 0x54, 0x65, 0x73, 0x74, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72, 0x52, 0x75, 0x6e, 0x74,
+	0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x6a, 0x0a, 0x1d, 0x66, 0x69, 0x6e, 0x69, 0x73,
+	0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74,
+	0x41, 0x63, 0x63, 0x65, 0x70, 0x74, 0x65, 0x64, 0x18, 0x0e, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x22,
+	0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57,
+	0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x41, 0x63, 0x63, 0x65, 0x70, 0x74,
+	0x65, 0x64, 0x48, 0x00, 0x52, 0x1d, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74,
+	0x57, 0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x41, 0x63, 0x63, 0x65, 0x70,
+	0x74, 0x65, 0x64, 0x12, 0x73, 0x0a, 0x20, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73,
+	0x74, 0x57, 0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x57, 0x72, 0x6f, 0x6e,
+	0x67, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x18, 0x0f, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x25, 0x2e,
+	0x6d, 0x73, 0x67, 0x2e, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69,
+	0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x57, 0x72, 0x6f, 0x6e, 0x67, 0x41, 0x6e,
+	0x73, 0x77, 0x65, 0x72, 0x48, 0x00, 0x52, 0x20, 0x66, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65,
+	0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x57, 0x72, 0x6f,
+	0x6e, 0x67, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72, 0x12, 0x3d, 0x0a, 0x0e, 0x69, 0x6e, 0x63, 0x72,
+	0x65, 0x6d, 0x65, 0x6e, 0x74, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x10, 0x20, 0x01, 0x28, 0x0b,
+	0x32, 0x13, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x49, 0x6e, 0x63, 0x72, 0x65, 0x6d, 0x65, 0x6e, 0x74,
+	0x53, 0x63, 0x6f, 0x72, 0x65, 0x48, 0x00, 0x52, 0x0e, 0x69, 0x6e, 0x63, 0x72, 0x65, 0x6d, 0x65,
+	0x6e, 0x74, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x42, 0x10, 0x0a, 0x0e, 0x66, 0x65, 0x65, 0x64, 0x62,
+	0x61, 0x63, 0x6b, 0x5f, 0x74, 0x79, 0x70, 0x65, 0x73, 0x22, 0x11, 0x0a, 0x0f, 0x53, 0x74, 0x61,
+	0x72, 0x74, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x22, 0x12, 0x0a, 0x10,
+	0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x3a, 0x0a, 0x1c, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69, 0x74, 0x68, 0x49, 0x6e,
+	0x65, 0x72, 0x6e, 0x61, 0x6c, 0x53, 0x65, 0x72, 0x76, 0x65, 0x72, 0x45, 0x72, 0x72, 0x6f, 0x72,
+	0x12, 0x1a, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20, 0x01,
+	0x28, 0x09, 0x52, 0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x22, 0x12, 0x0a, 0x10,
+	0x53, 0x74, 0x61, 0x72, 0x74, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e,
+	0x22, 0x51, 0x0a, 0x11, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c,
+	0x61, 0x74, 0x69, 0x6f, 0x6e, 0x12, 0x3c, 0x0a, 0x10, 0x63, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61,
+	0x74, 0x69, 0x6f, 0x6e, 0x52, 0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32,
+	0x10, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74,
+	0x61, 0x52, 0x10, 0x63, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x52, 0x44,
+	0x61, 0x74, 0x61, 0x22, 0x38, 0x0a, 0x1a, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x57, 0x69, 0x74,
+	0x68, 0x43, 0x6f, 0x6d, 0x70, 0x69, 0x6c, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x45, 0x72, 0x72, 0x6f,
+	0x72, 0x12, 0x1a, 0x0a, 0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x09, 0x52, 0x08, 0x65, 0x72, 0x72, 0x6f, 0x72, 0x4d, 0x73, 0x67, 0x22, 0x2a, 0x0a,
+	0x0c, 0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x69, 0x6e, 0x67, 0x12, 0x1a, 0x0a,
+	0x08, 0x6d, 0x61, 0x78, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52,
+	0x08, 0x6d, 0x61, 0x78, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x22, 0x24, 0x0a, 0x0a, 0x49, 0x67, 0x6e,
+	0x6f, 0x72, 0x65, 0x54, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x22,
+	0x23, 0x0a, 0x09, 0x53, 0x74, 0x61, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x12, 0x16, 0x0a, 0x06,
+	0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65,
+	0x73, 0x74, 0x49, 0x64, 0x22, 0x61, 0x0a, 0x1f, 0x52, 0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65,
+	0x73, 0x74, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e, 0x52, 0x75, 0x6e, 0x74,
+	0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x12,
+	0x26, 0x0a, 0x05, 0x72, 0x44, 0x61, 0x74, 0x61, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10,
+	0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61,
+	0x52, 0x05, 0x72, 0x44, 0x61, 0x74, 0x61, 0x22, 0xcb, 0x01, 0x0a, 0x1b, 0x46, 0x69, 0x6e, 0x69,
+	0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45,
+	0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x12,
+	0x2c, 0x0a, 0x11, 0x69, 0x73, 0x43, 0x50, 0x55, 0x54, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x63, 0x65,
+	0x65, 0x64, 0x65, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x08, 0x52, 0x11, 0x69, 0x73, 0x43, 0x50,
+	0x55, 0x54, 0x69, 0x6d, 0x65, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12, 0x30, 0x0a,
+	0x13, 0x6d, 0x65, 0x6d, 0x6f, 0x72, 0x79, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65,
+	0x65, 0x64, 0x65, 0x64, 0x18, 0x03, 0x20, 0x01, 0x28, 0x08, 0x52, 0x13, 0x6d, 0x65, 0x6d, 0x6f,
+	0x72, 0x79, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x12,
+	0x34, 0x0a, 0x15, 0x69, 0x64, 0x6c, 0x65, 0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x6d, 0x69, 0x74,
+	0x45, 0x78, 0x63, 0x65, 0x65, 0x64, 0x65, 0x64, 0x18, 0x04, 0x20, 0x01, 0x28, 0x08, 0x52, 0x15,
+	0x69, 0x64, 0x6c, 0x65, 0x6e, 0x65, 0x73, 0x73, 0x4c, 0x69, 0x6d, 0x69, 0x74, 0x45, 0x78, 0x63,
+	0x65, 0x65, 0x64, 0x65, 0x64, 0x22, 0x34, 0x0a, 0x1a, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54,
+	0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x45, 0x72,
+	0x72, 0x6f, 0x72, 0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x22, 0x46, 0x0a, 0x1c, 0x52,
+	0x65, 0x70, 0x6f, 0x72, 0x74, 0x54, 0x65, 0x73, 0x74, 0x43, 0x68, 0x65, 0x63, 0x6b, 0x65, 0x72,
+	0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x12, 0x26, 0x0a, 0x05, 0x72,
+	0x44, 0x61, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x10, 0x2e, 0x6d, 0x73, 0x67,
+	0x2e, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61, 0x52, 0x05, 0x72, 0x44,
+	0x61, 0x74, 0x61, 0x22, 0x37, 0x0a, 0x1d, 0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73,
+	0x74, 0x57, 0x69, 0x74, 0x68, 0x56, 0x65, 0x72, 0x64, 0x69, 0x63, 0x74, 0x41, 0x63, 0x63, 0x65,
+	0x70, 0x74, 0x65, 0x64, 0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x22, 0x3a, 0x0a, 0x20,
+	0x46, 0x69, 0x6e, 0x69, 0x73, 0x68, 0x54, 0x65, 0x73, 0x74, 0x57, 0x69, 0x74, 0x68, 0x56, 0x65,
+	0x72, 0x64, 0x69, 0x63, 0x74, 0x57, 0x72, 0x6f, 0x6e, 0x67, 0x41, 0x6e, 0x73, 0x77, 0x65, 0x72,
+	0x12, 0x16, 0x0a, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x06, 0x74, 0x65, 0x73, 0x74, 0x49, 0x64, 0x22, 0x26, 0x0a, 0x0e, 0x49, 0x6e, 0x63, 0x72,
+	0x65, 0x6d, 0x65, 0x6e, 0x74, 0x53, 0x63, 0x6f, 0x72, 0x65, 0x12, 0x14, 0x0a, 0x05, 0x64, 0x65,
+	0x6c, 0x74, 0x61, 0x18, 0x01, 0x20, 0x01, 0x28, 0x03, 0x52, 0x05, 0x64, 0x65, 0x6c, 0x74, 0x61,
+	0x22, 0xcb, 0x01, 0x0a, 0x0b, 0x52, 0x75, 0x6e, 0x74, 0x69, 0x6d, 0x65, 0x44, 0x61, 0x74, 0x61,
+	0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x64, 0x6f, 0x75, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09,
+	0x52, 0x06, 0x73, 0x74, 0x64, 0x6f, 0x75, 0x74, 0x12, 0x16, 0x0a, 0x06, 0x73, 0x74, 0x64, 0x65,
+	0x72, 0x72, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x06, 0x73, 0x74, 0x64, 0x65, 0x72, 0x72,
+	0x12, 0x1a, 0x0a, 0x08, 0x65, 0x78, 0x69, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x18, 0x03, 0x20, 0x01,
+	0x28, 0x03, 0x52, 0x08, 0x65, 0x78, 0x69, 0x74, 0x43, 0x6f, 0x64, 0x65, 0x12, 0x24, 0x0a, 0x0d,
+	0x63, 0x70, 0x75, 0x54, 0x69, 0x6d, 0x65, 0x4d, 0x69, 0x6c, 0x6c, 0x69, 0x73, 0x18, 0x04, 0x20,
+	0x01, 0x28, 0x03, 0x52, 0x0d, 0x63, 0x70, 0x75, 0x54, 0x69, 0x6d, 0x65, 0x4d, 0x69, 0x6c, 0x6c,
+	0x69, 0x73, 0x12, 0x26, 0x0a, 0x0e, 0x77, 0x61, 0x6c, 0x6c, 0x54, 0x69, 0x6d, 0x65, 0x4d, 0x69,
+	0x6c, 0x6c, 0x69, 0x73, 0x18, 0x05, 0x20, 0x01, 0x28, 0x03, 0x52, 0x0e, 0x77, 0x61, 0x6c, 0x6c,
+	0x54, 0x69, 0x6d, 0x65, 0x4d, 0x69, 0x6c, 0x6c, 0x69, 0x73, 0x12, 0x22, 0x0a, 0x0c, 0x6d, 0x65,
+	0x6d, 0x4b, 0x69, 0x62, 0x69, 0x42, 0x79, 0x74, 0x65, 0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x03,
+	0x52, 0x0c, 0x6d, 0x65, 0x6d, 0x4b, 0x69, 0x62, 0x69, 0x42, 0x79, 0x74, 0x65, 0x73, 0x32, 0x55,
+	0x0a, 0x08, 0x44, 0x69, 0x72, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x12, 0x49, 0x0a, 0x12, 0x45, 0x76,
+	0x61, 0x6c, 0x75, 0x61, 0x74, 0x65, 0x53, 0x75, 0x62, 0x6d, 0x69, 0x73, 0x73, 0x69, 0x6f, 0x6e,
+	0x12, 0x16, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x45, 0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f,
+	0x6e, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x17, 0x2e, 0x6d, 0x73, 0x67, 0x2e, 0x45,
+	0x76, 0x61, 0x6c, 0x75, 0x61, 0x74, 0x69, 0x6f, 0x6e, 0x46, 0x65, 0x65, 0x64, 0x62, 0x61, 0x63,
+	0x6b, 0x22, 0x00, 0x30, 0x01, 0x42, 0x26, 0x5a, 0x24, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e,
+	0x63, 0x6f, 0x6d, 0x2f, 0x70, 0x72, 0x6f, 0x67, 0x72, 0x61, 0x6d, 0x6d, 0x65, 0x2d, 0x6c, 0x76,
+	0x2f, 0x64, 0x69, 0x72, 0x65, 0x63, 0x74, 0x6f, 0x72, 0x2f, 0x6d, 0x73, 0x67, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -686,31 +1709,61 @@ func file_msg_director_proto_rawDescGZIP() []byte {
 	return file_msg_director_proto_rawDescData
 }
 
-var file_msg_director_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
+var file_msg_director_proto_msgTypes = make([]protoimpl.MessageInfo, 22)
 var file_msg_director_proto_goTypes = []interface{}{
-	(*EvaluationRequest)(nil),            // 0: msg.EvaluationRequest
-	(*Test)(nil),                         // 1: msg.Test
-	(*ProgrammingLanguage)(nil),          // 2: msg.ProgrammingLanguage
-	(*RuntimeLimits)(nil),                // 3: msg.RuntimeLimits
-	(*EvaluationFeedback)(nil),           // 4: msg.EvaluationFeedback
-	(*StartEvaluation)(nil),              // 5: msg.StartEvaluation
-	(*FinishWithInernalServerError)(nil), // 6: msg.FinishWithInernalServerError
-	(*FinishEvaluation)(nil),             // 7: msg.FinishEvaluation
-	(*StartCompilation)(nil),             // 8: msg.StartCompilation
+	(*EvaluationRequest)(nil),                // 0: msg.EvaluationRequest
+	(*Test)(nil),                             // 1: msg.Test
+	(*ProgrammingLanguage)(nil),              // 2: msg.ProgrammingLanguage
+	(*RuntimeLimits)(nil),                    // 3: msg.RuntimeLimits
+	(*EvaluationFeedback)(nil),               // 4: msg.EvaluationFeedback
+	(*StartEvaluation)(nil),                  // 5: msg.StartEvaluation
+	(*FinishEvaluation)(nil),                 // 6: msg.FinishEvaluation
+	(*FinishWithInernalServerError)(nil),     // 7: msg.FinishWithInernalServerError
+	(*StartCompilation)(nil),                 // 8: msg.StartCompilation
+	(*FinishCompilation)(nil),                // 9: msg.FinishCompilation
+	(*FinishWithCompilationError)(nil),       // 10: msg.FinishWithCompilationError
+	(*StartTesting)(nil),                     // 11: msg.StartTesting
+	(*IgnoreTest)(nil),                       // 12: msg.IgnoreTest
+	(*StartTest)(nil),                        // 13: msg.StartTest
+	(*ReportTestSubmissionRuntimeData)(nil),  // 14: msg.ReportTestSubmissionRuntimeData
+	(*FinishTestWithLimitExceeded)(nil),      // 15: msg.FinishTestWithLimitExceeded
+	(*FinishTestWithRuntimeError)(nil),       // 16: msg.FinishTestWithRuntimeError
+	(*ReportTestCheckerRuntimeData)(nil),     // 17: msg.ReportTestCheckerRuntimeData
+	(*FinishTestWithVerdictAccepted)(nil),    // 18: msg.FinishTestWithVerdictAccepted
+	(*FinishTestWithVerdictWrongAnswer)(nil), // 19: msg.FinishTestWithVerdictWrongAnswer
+	(*IncrementScore)(nil),                   // 20: msg.IncrementScore
+	(*RuntimeData)(nil),                      // 21: msg.RuntimeData
 }
 var file_msg_director_proto_depIdxs = []int32{
-	2, // 0: msg.EvaluationRequest.language:type_name -> msg.ProgrammingLanguage
-	3, // 1: msg.EvaluationRequest.limits:type_name -> msg.RuntimeLimits
-	1, // 2: msg.EvaluationRequest.tests:type_name -> msg.Test
-	5, // 3: msg.EvaluationFeedback.start:type_name -> msg.StartEvaluation
-	7, // 4: msg.EvaluationFeedback.finish:type_name -> msg.FinishEvaluation
-	0, // 5: msg.Director.EvaluateSubmission:input_type -> msg.EvaluationRequest
-	4, // 6: msg.Director.EvaluateSubmission:output_type -> msg.EvaluationFeedback
-	6, // [6:7] is the sub-list for method output_type
-	5, // [5:6] is the sub-list for method input_type
-	5, // [5:5] is the sub-list for extension type_name
-	5, // [5:5] is the sub-list for extension extendee
-	0, // [0:5] is the sub-list for field type_name
+	2,  // 0: msg.EvaluationRequest.language:type_name -> msg.ProgrammingLanguage
+	3,  // 1: msg.EvaluationRequest.limits:type_name -> msg.RuntimeLimits
+	1,  // 2: msg.EvaluationRequest.tests:type_name -> msg.Test
+	5,  // 3: msg.EvaluationFeedback.startEvaluation:type_name -> msg.StartEvaluation
+	6,  // 4: msg.EvaluationFeedback.finishEvaluation:type_name -> msg.FinishEvaluation
+	7,  // 5: msg.EvaluationFeedback.finishWithInernalServerError:type_name -> msg.FinishWithInernalServerError
+	8,  // 6: msg.EvaluationFeedback.startCompilation:type_name -> msg.StartCompilation
+	9,  // 7: msg.EvaluationFeedback.finishCompilation:type_name -> msg.FinishCompilation
+	10, // 8: msg.EvaluationFeedback.finishWithCompilationError:type_name -> msg.FinishWithCompilationError
+	11, // 9: msg.EvaluationFeedback.startTesting:type_name -> msg.StartTesting
+	12, // 10: msg.EvaluationFeedback.ignoreTest:type_name -> msg.IgnoreTest
+	13, // 11: msg.EvaluationFeedback.startTest:type_name -> msg.StartTest
+	14, // 12: msg.EvaluationFeedback.reportTestSubmissionRuntimeData:type_name -> msg.ReportTestSubmissionRuntimeData
+	15, // 13: msg.EvaluationFeedback.finishTestWithLimitExceeded:type_name -> msg.FinishTestWithLimitExceeded
+	16, // 14: msg.EvaluationFeedback.finishTestWithRuntimeError:type_name -> msg.FinishTestWithRuntimeError
+	17, // 15: msg.EvaluationFeedback.reportTestCheckerRuntimeData:type_name -> msg.ReportTestCheckerRuntimeData
+	18, // 16: msg.EvaluationFeedback.finishTestWithVerdictAccepted:type_name -> msg.FinishTestWithVerdictAccepted
+	19, // 17: msg.EvaluationFeedback.finishTestWithVerdictWrongAnswer:type_name -> msg.FinishTestWithVerdictWrongAnswer
+	20, // 18: msg.EvaluationFeedback.incrementScore:type_name -> msg.IncrementScore
+	21, // 19: msg.FinishCompilation.compilationRData:type_name -> msg.RuntimeData
+	21, // 20: msg.ReportTestSubmissionRuntimeData.rData:type_name -> msg.RuntimeData
+	21, // 21: msg.ReportTestCheckerRuntimeData.rData:type_name -> msg.RuntimeData
+	0,  // 22: msg.Director.EvaluateSubmission:input_type -> msg.EvaluationRequest
+	4,  // 23: msg.Director.EvaluateSubmission:output_type -> msg.EvaluationFeedback
+	23, // [23:24] is the sub-list for method output_type
+	22, // [22:23] is the sub-list for method input_type
+	22, // [22:22] is the sub-list for extension type_name
+	22, // [22:22] is the sub-list for extension extendee
+	0,  // [0:22] is the sub-list for field type_name
 }
 
 func init() { file_msg_director_proto_init() }
@@ -792,7 +1845,7 @@ func file_msg_director_proto_init() {
 			}
 		}
 		file_msg_director_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishWithInernalServerError); i {
+			switch v := v.(*FinishEvaluation); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -804,7 +1857,7 @@ func file_msg_director_proto_init() {
 			}
 		}
 		file_msg_director_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*FinishEvaluation); i {
+			switch v := v.(*FinishWithInernalServerError); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -827,12 +1880,182 @@ func file_msg_director_proto_init() {
 				return nil
 			}
 		}
+		file_msg_director_proto_msgTypes[9].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishCompilation); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[10].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishWithCompilationError); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[11].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StartTesting); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[12].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IgnoreTest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[13].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*StartTest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[14].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReportTestSubmissionRuntimeData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[15].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishTestWithLimitExceeded); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[16].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishTestWithRuntimeError); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[17].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*ReportTestCheckerRuntimeData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[18].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishTestWithVerdictAccepted); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[19].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*FinishTestWithVerdictWrongAnswer); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[20].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*IncrementScore); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_msg_director_proto_msgTypes[21].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*RuntimeData); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
 	}
 	file_msg_director_proto_msgTypes[1].OneofWrappers = []interface{}{}
 	file_msg_director_proto_msgTypes[2].OneofWrappers = []interface{}{}
 	file_msg_director_proto_msgTypes[4].OneofWrappers = []interface{}{
-		(*EvaluationFeedback_Start)(nil),
-		(*EvaluationFeedback_Finish)(nil),
+		(*EvaluationFeedback_StartEvaluation)(nil),
+		(*EvaluationFeedback_FinishEvaluation)(nil),
+		(*EvaluationFeedback_FinishWithInernalServerError)(nil),
+		(*EvaluationFeedback_StartCompilation)(nil),
+		(*EvaluationFeedback_FinishCompilation)(nil),
+		(*EvaluationFeedback_FinishWithCompilationError)(nil),
+		(*EvaluationFeedback_StartTesting)(nil),
+		(*EvaluationFeedback_IgnoreTest)(nil),
+		(*EvaluationFeedback_StartTest)(nil),
+		(*EvaluationFeedback_ReportTestSubmissionRuntimeData)(nil),
+		(*EvaluationFeedback_FinishTestWithLimitExceeded)(nil),
+		(*EvaluationFeedback_FinishTestWithRuntimeError)(nil),
+		(*EvaluationFeedback_ReportTestCheckerRuntimeData)(nil),
+		(*EvaluationFeedback_FinishTestWithVerdictAccepted)(nil),
+		(*EvaluationFeedback_FinishTestWithVerdictWrongAnswer)(nil),
+		(*EvaluationFeedback_IncrementScore)(nil),
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
@@ -840,7 +2063,7 @@ func file_msg_director_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_msg_director_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   9,
+			NumMessages:   22,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

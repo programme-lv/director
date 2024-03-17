@@ -42,17 +42,86 @@ message RuntimeLimits {
 
 message EvaluationFeedback {
     oneof feedback_types {
-        StartEvaluation start = 1;
-        FinishEvaluation finish = 2;
+        StartEvaluation startEvaluation = 1;
+        FinishEvaluation finishEvaluation = 2;
+        FinishWithInernalServerError finishWithInernalServerError = 3;
+        StartCompilation startCompilation = 4;
+        FinishCompilation finishCompilation = 5;
+        FinishWithCompilationError finishWithCompilationError = 6;
+        StartTesting startTesting = 7;
+        IgnoreTest ignoreTest = 8;
+        StartTest startTest = 9;
+        ReportTestSubmissionRuntimeData reportTestSubmissionRuntimeData = 10;
+        FinishTestWithLimitExceeded finishTestWithLimitExceeded = 11;
+        FinishTestWithRuntimeError finishTestWithRuntimeError = 12;
+        ReportTestCheckerRuntimeData reportTestCheckerRuntimeData = 13;
+        FinishTestWithVerdictAccepted finishTestWithVerdictAccepted = 14;
+        FinishTestWithVerdictWrongAnswer finishTestWithVerdictWrongAnswer = 15;
+        IncrementScore incrementScore = 16;
     }
 }
 
 message StartEvaluation {}
-
+message FinishEvaluation {}
 message FinishWithInernalServerError {
     string errorMsg = 1;
 }
 
-message FinishEvaluation {}
-
 message StartCompilation {}
+message FinishCompilation {
+    RuntimeData compilationRData = 1;
+}
+message FinishWithCompilationError {
+    string errorMsg = 1;
+}
+
+message StartTesting {
+    int64 maxScore = 1;
+}
+message IgnoreTest {
+    int64 testId = 1;
+}
+
+message StartTest {
+    int64 testId = 1;
+}
+message ReportTestSubmissionRuntimeData {
+    int64 testId = 1;
+    RuntimeData rData = 2;
+}
+
+message FinishTestWithLimitExceeded {
+    int64 testId = 1;
+    bool isCPUTimeExceeded = 2;
+    bool memoryLimitExceeded = 3;
+    bool idlenessLimitExceeded = 4;
+}
+
+message FinishTestWithRuntimeError {
+    int64 testId = 1;
+}
+
+message ReportTestCheckerRuntimeData {
+    RuntimeData rData = 1;
+}
+
+message FinishTestWithVerdictAccepted {
+    int64 testId = 1;
+}
+
+message FinishTestWithVerdictWrongAnswer {
+    int64 testId = 1;
+}
+
+message IncrementScore {
+    int64 delta = 1;
+}
+
+message RuntimeData {
+    string stdout = 1;
+    string stderr = 2;
+    int64 exitCode = 3;
+    int64 cpuTimeMillis = 4;
+    int64 wallTimeMillis = 5;
+    int64 memKibiBytes = 6;
+}
