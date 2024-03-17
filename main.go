@@ -101,7 +101,22 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 
 	for msg := range msgs {
 		// unmarshal the message
-		log.Printf("Received a message: %s", msg.Body)
+		log.Printf("Received a message: %+v", msg.Body)
+		decompressed, err := snappy.Decode(nil, msg.Body)
+		if err != nil {
+			return fmt.Errorf("failed to decompress message with snappy: %v", err)
+		}
+
+		feedback := pb.EvaluationFeedback{}
+		if err := proto.Unmarshal(decompressed, &feedback); err != nil {
+			return err
+		}
+
+		switch feedback.FeedbackTypes.(type) {
+		case *pb.EvaluationFeedback_Start:
+			log.Printf("Received start message")
+		}
+
 		msg.Ack(false)
 	}
 
