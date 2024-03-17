@@ -117,6 +117,11 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 			log.Printf("Received start message")
 		}
 
+		err = stream.Send(&feedback)
+		if err != nil {
+			return err
+		}
+
 		msg.Ack(false)
 	}
 
