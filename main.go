@@ -112,19 +112,28 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 			return err
 		}
 
+		err = stream.Send(&feedback)
+		if err != nil {
+			return err
+		}
+
+		finished := false
 		switch feedback.FeedbackTypes.(type) {
 		case *pb.EvaluationFeedback_StartEvaluation:
 			log.Printf("StartEvaluation: %+v", feedback.GetStartEvaluation())
 		case *pb.EvaluationFeedback_FinishEvaluation:
 			log.Printf("FinishEvaluation: %+v", feedback.GetFinishEvaluation())
+			finished = true
 		case *pb.EvaluationFeedback_FinishWithInernalServerError:
 			log.Printf("FinishWithInernalServerError: %+v", feedback.GetFinishWithInernalServerError())
+			finished = true
 		case *pb.EvaluationFeedback_StartCompilation:
 			log.Printf("StartCompilation: %+v", feedback.GetStartCompilation())
 		case *pb.EvaluationFeedback_FinishCompilation:
 			log.Printf("FinishCompilation: %+v", feedback.GetFinishCompilation())
 		case *pb.EvaluationFeedback_FinishWithCompilationError:
 			log.Printf("FinishWithCompilationError: %+v", feedback.GetFinishWithCompilationError())
+			finished = true
 		case *pb.EvaluationFeedback_StartTesting:
 			log.Printf("StartTesting: %+v", feedback.GetStartTesting())
 		case *pb.EvaluationFeedback_IgnoreTest:
@@ -146,13 +155,10 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 		case *pb.EvaluationFeedback_IncrementScore:
 			log.Printf("IncrementScore: %+v", feedback.GetIncrementScore())
 		}
-
-		err = stream.Send(&feedback)
-		if err != nil {
-			return err
-		}
-
 		msg.Ack(false)
+		if finished {
+			break
+		}
 	}
 
 	return nil
