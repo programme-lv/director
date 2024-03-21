@@ -175,7 +175,7 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 func main() {
 	err := godotenv.Load()
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		log.Println("Error loading .env file")
 	}
 	flag.Parse()
 	lis, err := net.Listen("tcp", fmt.Sprintf(":%d", *port))
