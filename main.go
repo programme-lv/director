@@ -1,25 +1,27 @@
 package main
 
 import (
-	"context"
 	"flag"
 	"fmt"
 	"log"
 	"net"
 	"os"
 	"strings"
-	"time"
 
 	"github.com/golang/snappy"
 	"github.com/joho/godotenv"
 	pb "github.com/programme-lv/director/msg"
-	amqp "github.com/rabbitmq/amqp091-go"
+
+	// amqp "github.com/rabbitmq/amqp091-go"
+	amqp "github.com/peake100/rogerRabbit-go/pkg/amqp"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 )
+
+// https://github.com/peake100/rogerRabbit-go#readme
 
 var (
 	errMissingMetadata = status.Errorf(codes.InvalidArgument, "missing metadata")
@@ -35,9 +37,6 @@ type server struct {
 }
 
 func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Director_EvaluateSubmissionServer) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-	defer cancel()
-
 	body, err := proto.Marshal(req)
 	if err != nil {
 		return err
@@ -49,6 +48,7 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 	if err != nil {
 		return err
 	}
+	defer ch.Close()
 
 	evalQ, err := ch.QueueDeclare(
 		"eval_q",     // name
@@ -76,7 +76,7 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 		return err
 	}
 
-	err = ch.PublishWithContext(ctx,
+	err = ch.Publish(
 		"",         // exchange
 		evalQ.Name, // routing key
 		true,       // mandatory
@@ -85,9 +85,9 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 			ContentType: "application/octet-stream",
 			Body:        body,
 			ReplyTo:     respQ.Name,
-			// Expiration:  "10000", // 10 seconds
-			Expiration: fmt.Sprintf("%d", 1000*60*30), // 30 minutes
-		})
+			Expiration:  fmt.Sprintf("%d", 1000*60*30), // 30 minutes
+		},
+	)
 
 	if err != nil {
 		return err
@@ -187,6 +187,13 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to connect to RabbitMQ: %v", err)
 	}
+
+	// notify := conn.NotifyClose(make(chan *amqp.Error))
+	// go func() {
+	// 	for err := range notify {
+	// 		log.Printf("RabbitMQ connection closed: %v", err)
+	// 	}
+	// }()
 
 	apiKey := os.Getenv("GRPC_API_KEY")
 	if len(apiKey) < 3 {
