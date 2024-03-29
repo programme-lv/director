@@ -33,7 +33,8 @@ var (
 
 type server struct {
 	pb.UnimplementedDirectorServer
-	conn *amqp.Connection
+	conn    *amqp.Connection
+	infoLog *log.Logger
 }
 
 func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Director_EvaluateSubmissionServer) error {
@@ -109,7 +110,6 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 
 	for msg := range msgs {
 		// unmarshal the message
-		log.Printf("Received a message: %+v", msg.Body)
 		decompressed, err := snappy.Decode(nil, msg.Body)
 		if err != nil {
 			return fmt.Errorf("failed to decompress message with snappy: %v", err)
@@ -128,40 +128,40 @@ func (s *server) EvaluateSubmission(req *pb.EvaluationRequest, stream pb.Directo
 		finished := false
 		switch feedback.FeedbackTypes.(type) {
 		case *pb.EvaluationFeedback_StartEvaluation:
-			log.Printf("StartEvaluation: %+v", feedback.GetStartEvaluation())
+			s.infoLog.Printf("StartEvaluation: %+v", feedback.GetStartEvaluation())
 		case *pb.EvaluationFeedback_FinishEvaluation:
-			log.Printf("FinishEvaluation: %+v", feedback.GetFinishEvaluation())
+			s.infoLog.Printf("FinishEvaluation: %+v", feedback.GetFinishEvaluation())
 			finished = true
 		case *pb.EvaluationFeedback_FinishWithInernalServerError:
-			log.Printf("FinishWithInernalServerError: %+v", feedback.GetFinishWithInernalServerError())
+			s.infoLog.Printf("FinishWithInernalServerError: %+v", feedback.GetFinishWithInernalServerError())
 			finished = true
 		case *pb.EvaluationFeedback_StartCompilation:
-			log.Printf("StartCompilation: %+v", feedback.GetStartCompilation())
+			s.infoLog.Printf("StartCompilation: %+v", feedback.GetStartCompilation())
 		case *pb.EvaluationFeedback_FinishCompilation:
-			log.Printf("FinishCompilation: %+v", feedback.GetFinishCompilation())
+			s.infoLog.Printf("FinishCompilation: %+v", feedback.GetFinishCompilation())
 		case *pb.EvaluationFeedback_FinishWithCompilationError:
-			log.Printf("FinishWithCompilationError: %+v", feedback.GetFinishWithCompilationError())
+			s.infoLog.Printf("FinishWithCompilationError: %+v", feedback.GetFinishWithCompilationError())
 			finished = true
 		case *pb.EvaluationFeedback_StartTesting:
-			log.Printf("StartTesting: %+v", feedback.GetStartTesting())
+			s.infoLog.Printf("StartTesting: %+v", feedback.GetStartTesting())
 		case *pb.EvaluationFeedback_IgnoreTest:
-			log.Printf("IgnoreTest: %+v", feedback.GetIgnoreTest())
+			s.infoLog.Printf("IgnoreTest: %+v", feedback.GetIgnoreTest())
 		case *pb.EvaluationFeedback_StartTest:
-			log.Printf("StartTest: %+v", feedback.GetStartTest())
+			s.infoLog.Printf("StartTest: %+v", feedback.GetStartTest())
 		case *pb.EvaluationFeedback_ReportTestSubmissionRuntimeData:
-			log.Printf("ReportTestSubmissionRuntimeData: %+v", feedback.GetReportTestSubmissionRuntimeData())
+			s.infoLog.Printf("ReportTestSubmissionRuntimeData: %+v", feedback.GetReportTestSubmissionRuntimeData())
 		case *pb.EvaluationFeedback_FinishTestWithLimitExceeded:
-			log.Printf("FinishTestWithLimitExceeded: %+v", feedback.GetFinishTestWithLimitExceeded())
+			s.infoLog.Printf("FinishTestWithLimitExceeded: %+v", feedback.GetFinishTestWithLimitExceeded())
 		case *pb.EvaluationFeedback_FinishTestWithRuntimeError:
-			log.Printf("FinishTestWithRuntimeError: %+v", feedback.GetFinishTestWithRuntimeError())
+			s.infoLog.Printf("FinishTestWithRuntimeError: %+v", feedback.GetFinishTestWithRuntimeError())
 		case *pb.EvaluationFeedback_ReportTestCheckerRuntimeData:
-			log.Printf("ReportTestCheckerRuntimeData: %+v", feedback.GetReportTestCheckerRuntimeData())
+			s.infoLog.Printf("ReportTestCheckerRuntimeData: %+v", feedback.GetReportTestCheckerRuntimeData())
 		case *pb.EvaluationFeedback_FinishTestWithVerdictAccepted:
-			log.Printf("FinishTestWithVerdictAccepted: %+v", feedback.GetFinishTestWithVerdictAccepted())
+			s.infoLog.Printf("FinishTestWithVerdictAccepted: %+v", feedback.GetFinishTestWithVerdictAccepted())
 		case *pb.EvaluationFeedback_FinishTestWithVerdictWrongAnswer:
-			log.Printf("FinishTestWithVerdictWrongAnswer: %+v", feedback.GetFinishTestWithVerdictWrongAnswer())
+			s.infoLog.Printf("FinishTestWithVerdictWrongAnswer: %+v", feedback.GetFinishTestWithVerdictWrongAnswer())
 		case *pb.EvaluationFeedback_IncrementScore:
-			log.Printf("IncrementScore: %+v", feedback.GetIncrementScore())
+			s.infoLog.Printf("IncrementScore: %+v", feedback.GetIncrementScore())
 		}
 		msg.Ack(false)
 		if finished {
@@ -206,6 +206,7 @@ func main() {
 	grpcServer := grpc.NewServer(opts...)
 	server := &server{}
 	server.conn = conn
+	server.infoLog = log.New(os.Stdout, "INFO: ", log.LstdFlags)
 	pb.RegisterDirectorServer(grpcServer, server)
 	log.Printf("server listening at %v", lis.Addr())
 	if err := grpcServer.Serve(lis); err != nil {
