@@ -71,9 +71,7 @@ message StartCompilation {}
 message FinishCompilation {
     RuntimeData compilationRData = 1;
 }
-message FinishWithCompilationError {
-    string errorMsg = 1;
-}
+message FinishWithCompilationError {}
 
 message StartTesting {
     int64 maxScore = 1;
